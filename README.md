@@ -1,2 +1,2 @@
 # MeetingAppFull
-Angular + Net 5 + WebRTC + SignalR
+Angular 12 + Net 5 + WebRTC + SignalR
