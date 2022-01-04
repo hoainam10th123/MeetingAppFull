@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Add a room</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="addRoomForm" (ngSubmit)="save()">
+    <div class="form-floating">
+      <input type="text" class="form-control"
+        [class.is-invalid]='addRoomForm.get("roomName")!.errors && addRoomForm.get("roomName")!.touched'
+        formControlName='roomName' id="floatingInput" placeholder="Name">
+      <label for="floatingInput">Room name</label>
+      <div class="invalid-feedback" *ngIf="addRoomForm.get('roomName')!.hasError('required')">Required name!</div>
+      <div *ngIf="addRoomForm.get('roomName')!.hasError('maxlength')" class="invalid-feedback">Room Name max-length is:
+        100
+      </div>
+    </div>
+
+    <button [disabled]="!addRoomForm.valid" class="w-100 btn btn-lg btn-success" type="submit">Save</button>
+  </form>
+</div>

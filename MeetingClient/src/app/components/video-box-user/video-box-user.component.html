@@ -1,0 +1,15 @@
+<!-- goi trong home -->
+<div class="card text-white bg-dark mb-3" style="width: 100%;">
+    <div class="card-body" style="padding: 0;">
+        <video  width="100%" height="150" [srcObject]="userVideo.srcObject" (loadedmetadata)="onLoadedMetadata($event)"
+            [muted]="userVideo.muted">
+        </video>
+    </div>
+    <div style="padding: 0;">
+        <span class="text-truncate span-inline-block"> {{userVideo.user.displayName}} </span>
+        <span style="float: right; color: white;">
+            <i class="fas" [ngClass]="enableCamera ? ['fa-video']:['fa-video-slash']"></i>
+            <i class="fas" [ngClass]="enableMicro ? ['fa-microphone']:['fa-microphone-slash']"></i>
+        </span>
+    </div>
+</div>

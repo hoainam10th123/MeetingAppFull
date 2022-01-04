@@ -1,0 +1,66 @@
+<ng-template #popTemplate>
+  <div>
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <div class="form-floating">
+        <input type="text" class="form-control"
+          [class.is-invalid]='searchForm.get("userName")!.errors && searchForm.get("userName")!.touched'
+          formControlName='userName' id="userName" placeholder="Username">
+        <label for="userName">Username</label>
+        <div class="invalid-feedback" *ngIf="searchForm.get('userName')!.hasError('required')">Required UserName!</div>
+      </div>
+      <button [disabled]="!searchForm.valid" type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</ng-template>
+<div class="row">
+  <div class="col-md-4">
+    <div class="list-group">
+      <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+        The current button
+      </button>
+      <button type="button" class="list-group-item list-group-item-action" [popover]="popTemplate">Search by
+        Username</button>
+      <button type="button" class="list-group-item list-group-item-action">A third button item</button>
+      <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
+      <button type="button" class="list-group-item list-group-item-action">A disabled button item</button>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <tabset>
+        <tab heading="User" id="tab1">
+          <table class="table table-sm table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">DisplayName</th>
+                <th scope="col">UserName</th>
+                <th scope="col">Locked</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of users; index as stt;">
+                <th scope="row">{{stt+1}}</th>
+                <td>{{item.displayName}}</td>
+                <td>{{item.userName}}</td>
+                <td>
+                  <app-clocked-button [member]="item" (lockedUserEvent)="lockedUser($event)"></app-clocked-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-center" *ngIf="pagination">
+            <pagination [boundaryLinks]="true" [maxSize]="maxSize" [totalItems]="pagination.totalItems"
+              [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+              (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+              lastText="&raquo;">
+            </pagination>
+          </div>
+        </tab>
+        <tab heading="Basic Title 1">Basic content 1</tab>
+        <tab heading="Basic Title 2">Basic content 2</tab>
+      </tabset>
+    </div>
+  </div>
+</div>

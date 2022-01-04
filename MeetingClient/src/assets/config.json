@@ -1,0 +1,9 @@
+{
+    "isRecorded": true,
+    "clockRegister": false,
+    "pageSize": 20,
+    "STUN_SERVER": "stun:stun.l.google.com:19302",
+    "urlTurnServer":"turn:numb.viagenie.ca",
+    "username":"webrtc@live.com",
+    "password":"muazkh"
+}

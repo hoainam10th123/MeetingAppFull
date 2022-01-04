@@ -1,0 +1,52 @@
+<div class="form-signin">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="text-center">
+            <img class="mb-4" src="./assets/bootstrap-logo.svg" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal">Please Register</h1>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control"
+                [class.is-invalid]='registerForm.get("userName")!.errors && registerForm.get("userName")!.touched'
+                formControlName='userName' id="userName" placeholder="Username">
+            <label for="userName">Username</label>
+            <div class="invalid-feedback" *ngIf="registerForm.get('userName')!.hasError('required')">Required UserName!</div>            
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control"
+                [class.is-invalid]='registerForm.get("displayName")!.errors && registerForm.get("displayName")!.touched'
+                formControlName='displayName' id="displayName" placeholder="Display Name">
+            <label for="displayName">Display Name</label>
+            <div class="invalid-feedback" *ngIf="registerForm.get('displayName')!.hasError('required')">Required Display Name!</div>            
+            <div *ngIf="registerForm.get('displayName')!.hasError('maxlength')" class="invalid-feedback">displayName max is: 20
+            </div>
+        </div>
+
+        <div class="form-floating">
+            <input type="password"
+                [class.is-invalid]='registerForm.get("password")!.errors && registerForm.get("password")!.touched'
+                class="form-control" formControlName='password' id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+            <div *ngIf="registerForm.get('password')!.hasError('required')" class="invalid-feedback">Required
+                Password!</div>
+            <div *ngIf="registerForm.get('password')!.hasError('minlength')" class="invalid-feedback">Password min is: 6</div>
+            <div *ngIf="registerForm.get('password')!.hasError('maxlength')" class="invalid-feedback">Password max is: 20
+            </div>
+        </div>
+
+        <!-- <div class="form-floating">
+            <input type="password"
+                [class.is-invalid]='registerForm.get("confirmPassword")!.errors && registerForm.get("confirmPassword")!.touched'
+                class="form-control" formControlName='confirmPassword' id="confirmPassword" placeholder="Confirm Password">
+            <label for="confirmPassword">Confirm Password</label>
+            <div *ngIf="registerForm.get('confirmPassword')!.hasError('required')" class="invalid-feedback">Required
+                Password!</div>
+            <div *ngIf="registerForm.get('confirmPassword')!.hasError('minlength')" class="invalid-feedback">Password min is: 6</div>
+            <div *ngIf="registerForm.get('confirmPassword')!.hasError('maxlength')" class="invalid-feedback">Password max is: 20
+            </div>
+        </div> -->
+
+        <button [disabled]="!registerForm.valid" class="w-100 btn btn-lg btn-success" type="submit">Register</button>
+    </form>
+</div>

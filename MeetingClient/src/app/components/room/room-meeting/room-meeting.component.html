@@ -1,0 +1,74 @@
+<div class="row">
+  <nav class="nav nav-pills nav-fill">
+    <a class="nav-link" (click)="openAddRoomModalWithComponent()">
+      <i class="fas fa-plus"></i>
+      New room
+    </a>    
+    <a class="nav-link">
+      Group by user
+      <select [(ngModel)]="data" (ngModelChange)="ngChanged($event)" class="form-select" aria-label="Default select example">
+        <option *ngFor="let currentData of roomGroupBy" [ngValue]="currentData">
+          {{currentData.displayName}}
+        </option>
+      </select>
+    </a>
+    <a class="nav-link" (click)="loadRooms()">
+      <i class="fas fa-sync"></i>
+      Reload data
+    </a>
+    <a *appHasRole='["Admin"]' class="nav-link" (click)="deleteAll()">
+      <i class="fas fa-trash-alt"></i>
+      Delete All
+    </a>
+    <!-- disabled -->
+  </nav>
+</div>
+<div class="row" style="overflow-x: scroll;">
+  <table class="table table-sm table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Room name</th>
+        <th scope="col">Created by</th>
+        <th scope="col">Member joined</th>
+        <th scope="col">Join</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listRoom; index as stt;">
+        <th scope="row">{{stt+1}}</th>
+        <td>{{item.roomName}}</td>
+        <ng-template #poptemplete>
+          <div style="color: blue; font-size: x-large;">
+            {{item.userName}}
+          </div>
+        </ng-template>
+        <td [popover]="poptemplete">{{item.displayName}}</td>
+        <td><span class="label-danger">{{item.countMember}}</span></td>
+        <td>
+          <button type="button" class="btn btn-sm btn-success" (click)="joinRoom(item.roomId)">
+            <i class="far fa-hand-point-right"></i>
+            Join room
+          </button>
+        </td>
+        <td>
+          <div *ngIf="currentUser.userName === item.userName || currentUser.roles.includes('Admin')">
+            <button type="button" class="btn btn-sm btn-primary mg" (click)="openEditRoomModalWithComponent(item)">
+              <i class="far fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger mg" (click)="deleteRoomById(item.roomId)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-center" *ngIf="pagination">
+  <pagination [boundaryLinks]="true" [maxSize]="maxSize" [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  </pagination>
+</div>

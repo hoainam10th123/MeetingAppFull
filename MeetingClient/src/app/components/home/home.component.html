@@ -1,0 +1,153 @@
+<div class="row">
+    <div class="col-12">
+        <div>
+            <nav class="nav nav-pills nav-fill">
+                <a class="nav-link" (click)="StartRecord()" *ngIf="isRecorded">
+                    <i class="fas" [ngClass]="isStopRecord ? ['fa-stop']:['fa-record-vinyl red'] "></i>
+                    {{textStopRecord}}
+                </a>
+                <a class="nav-link" (click)="enableOrDisableAudio()">
+                    <i class="fas" [ngClass]="enableAudio ? ['fa-microphone']:['fa-microphone-slash'] "></i>
+                    <!-- fa-microphone -->
+                </a>
+                <a class="nav-link" (click)="enableOrDisableVideo()">
+                    <i class="fas" [ngClass]="enableVideo ? ['fa-video']:['fa-video-slash'] "></i>
+                    <!-- fa-video-slash -->
+                </a>
+                <a class="nav-link">
+                    <button type="button" [disabled]="!enableShareScreen" class="btn btn-primary btn-sm" (click)="shareScreen()">Share screen</button>
+                </a>                
+                <!-- disabled -->
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row mt-1">
+    <div class="col-md-7">
+        <div [ngSwitch]="statusScreen">
+            <!-- the same view can be shown in more than one case -->
+            <!-- SHARESCREEN -->
+            <div style="position: relative;" id="share-screen" *ngSwitchCase="'SHARESCREEN'">
+                <video [srcObject]="shareScreenStream" (loadedmetadata)="onLoadedMetadata($event)" muted></video>
+                <span class="label badge bg-danger" *ngIf="userIsSharing">{{userIsSharing}}</span>
+            </div>
+
+            <div id="share-screen" *ngSwitchCase="'ONESCREEN'">
+                <div class="row">
+                    <div class="col-12">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div id="two-screen" *ngSwitchCase="'TWOSCREEN'">
+                <div class="row">
+                    <div class="col-12">
+                        
+                    </div>
+                    <div class="col-12">      
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div id="three-screen" *ngSwitchCase="'THREESCREEN'">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div id="fourth-screen" *ngSwitchCase="'FOURTHSCREEN'">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <app-video-box-user ></app-video-box-user> -->
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        
+                    </div>
+                </div>
+            </div>
+            <!--default case when there are no matches -->
+            <div *ngSwitchDefault>
+                <alert type="danger">
+                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                </alert>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div style="height: 100%;">
+            <tabset>
+                <tab heading="Participants" (selectTab)="onSelect($event)">
+                    <ng-template tabHeading>
+                        <span class="badge badge-secondary bg-secondary" *ngIf="videos.length > maxUserDisplay">{{videos.length}}</span>
+                    </ng-template>
+
+                    <div class="row" style="max-height: 430px; overflow-y: scroll;">
+                        <div class="col-6" *ngFor="let user of tempvideos">
+                            <app-video-box-user [userVideo]="user"></app-video-box-user>
+                        </div>                        
+                        
+                        <div class="col-12" *ngIf="videos.length > maxUserDisplay">
+                            <div class="text-center">
+                                <div class="box text-secondary" style="font-size: x-large;"> +{{videos.length - maxUserDisplay}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- local video of current user -->
+                    <div class="row mt-1 justify-content-center">
+                        <div class="col-8">
+                            <div class="card text-white bg-dark mb-3" style="width: 100%;">
+                                <div class="card-body" style="padding: 0;">
+                                    <video #videoPlayer width="100%" height="40%" controls></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Chat" (selectTab)="onSelect($event)">
+                    <ng-template tabHeading>
+                        <span class="badge badge-danger bg-danger" *ngIf="messageCount > 0">{{messageCount}}</span>
+                    </ng-template>
+
+                    <div class="list-group" style="height: 420px; overflow-y: scroll;">
+                        <a class="list-group-item list-group-item-action" *ngFor="let message of messageInGroup">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{message.senderDisplayName}}</h5>
+                                <small>{{message.messageSent | timeago}}</small>
+                            </div>
+                            <p class="mb-1">{{message.content}}</p>
+                            <small>{{message.messageSent | date:'d/M/yyyy, h:mm a'}}</small>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <form [formGroup]="chatForm" autocomplete="off" (ngSubmit)="sendMessage()">
+                            <div class="input-group">
+                                <input type="text" formControlName='content' name="content"
+                                    class="form-control input-sm" placeholder="type message here...">
+                                <div class="input-group-append">
+                                    <button [disabled]="!chatForm.valid" class="btn btn-primary"
+                                        type="submit">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>

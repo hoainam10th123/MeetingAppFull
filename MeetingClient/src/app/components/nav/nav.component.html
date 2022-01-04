@@ -1,0 +1,36 @@
+<div class="container">
+    <header
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a routerLink="/room" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <h3 class="text-primary">Meeting platform</h3>
+        </a>
+
+        <ul class="nav col-12 col-md-auto mb-2 mb-md-0">
+            <li *ngIf="accountService.currentUser$ | async">
+                <a class="nav-link px-2 text-primary" routerLink="/room" routerLinkActive='active'>Room</a>
+            </li>
+            <li *appHasRole='["Admin"]'>
+                <a class="nav-link px-2 text-primary" routerLink="/manage-user" routerLinkActive='active'>Manage user</a>
+            </li>
+            <li *ngIf="!(accountService.currentUser$ | async)">
+                <a class="nav-link px-2 text-primary" routerLink="/login" routerLinkActive='active'>Login</a>
+            </li>            
+        </ul>
+
+        <div class="btn-group" dropdown *ngIf="(accountService.currentUser$ | async) as user">
+            <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle btn-outline-primary"
+                aria-controls="dropdown-basic"
+                tooltip="{{user.displayName}}" placement="left">
+                <img class="rounded-circle img-persion" src="{{user.photoUrl || './assets/user.png'}}" alt="{{user.displayName}}"> <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" routerLink="/avarta-managed">Avarta</a></li>
+                <li role="menuitem"><a class="dropdown-item" routerLink="/edit-information" (click)="infor()">Infor test</a>
+                </li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item" (click)="logout()">Sign out</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+</div>
