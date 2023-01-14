@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from 'src/app/_services/account.service';
@@ -12,7 +12,7 @@ import { ConfigService } from 'src/app/_services/ConfigService';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
 
   constructor(private accountSevice: AccountService,
     private toastr: ToastrService, 
@@ -24,10 +24,10 @@ export class RegisterComponent implements OnInit {
   }
 
   khoiTaoForm() {
-    this.registerForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      displayName: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])      
+    this.registerForm = new UntypedFormGroup({
+      userName: new UntypedFormControl('', [Validators.required]),
+      displayName: new UntypedFormControl('', [Validators.required, Validators.maxLength(20)]),
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])      
     })
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { MyStreamSocialService } from 'src/app/_services/my-stream-social.servic
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   user: User;
   
   constructor(public accountService: AccountService, 
@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
   }
 
   khoiTaoForm() {
-    this.loginForm = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
+    this.loginForm = new UntypedFormGroup({
+      userName: new UntypedFormControl('', [Validators.required]),
+      password: new UntypedFormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
     })
   }
 

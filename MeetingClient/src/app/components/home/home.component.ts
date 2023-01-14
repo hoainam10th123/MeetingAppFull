@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TabDirective } from 'ngx-bootstrap/tabs';
 import { Subscription } from 'rxjs';
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentMember: Member;
   subscriptions = new Subscription();
   statusScreen: eMeet;
-  chatForm: FormGroup;
+  chatForm: UntypedFormGroup;
   messageCount = 0;
   shareScreenPeer: any;
   @ViewChild('videoPlayer') localvideoPlayer: ElementRef;
@@ -290,8 +290,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   khoiTaoForm() {
-    this.chatForm = new FormGroup({
-      content: new FormControl('', Validators.required)
+    this.chatForm = new UntypedFormGroup({
+      content: new UntypedFormControl('', Validators.required)
     })
   }
 

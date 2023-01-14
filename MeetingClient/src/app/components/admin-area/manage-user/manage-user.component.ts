@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Member } from 'src/app/models/member';
 import { Pagination } from 'src/app/models/pagination';
 import { ConfigService } from 'src/app/_services/ConfigService';
@@ -17,7 +17,7 @@ export class ManageUserComponent implements OnInit {
   pageSize = 5;
   maxSize = 5;
   pagination: Pagination;
-  searchForm: FormGroup;
+  searchForm: UntypedFormGroup;
 
   constructor(private memberService: MemberService, private config: ConfigService) { 
     this.pageSize = this.config.pageSize
@@ -57,8 +57,8 @@ export class ManageUserComponent implements OnInit {
   }
 
   khoiTaoForm() {
-    this.searchForm = new FormGroup({
-      userName: new FormControl('', [Validators.required])            
+    this.searchForm = new UntypedFormGroup({
+      userName: new UntypedFormControl('', [Validators.required])            
     })
   }
 }

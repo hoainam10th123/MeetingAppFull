@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Room } from 'src/app/models/room';
 import { RoomService } from 'src/app/_services/room.service';
@@ -11,7 +11,7 @@ import { UtilityStreamService } from 'src/app/_services/utility-stream.service';
   styleUrls: ['./add-room-modal.component.css']
 })
 export class AddRoomModalComponent implements OnInit {
-  addRoomForm: FormGroup;
+  addRoomForm: UntypedFormGroup;
 
   title?: string;
   list: any[] = [];
@@ -23,8 +23,8 @@ export class AddRoomModalComponent implements OnInit {
   }
 
   khoiTaoForm() {
-    this.addRoomForm = new FormGroup({
-      roomName: new FormControl('', [Validators.required, Validators.maxLength(100)])      
+    this.addRoomForm = new UntypedFormGroup({
+      roomName: new UntypedFormControl('', [Validators.required, Validators.maxLength(100)])      
     })
   }
 

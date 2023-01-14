@@ -31,8 +31,8 @@ import { ErrorInterceptor } from './_interceptor/error.interceptor';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
 import { LoadingInterceptor } from './_interceptor/loading.interceptor';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { ChatGroupComponent } from './components/chat-group/chat-group.component';
 import { AddRoomModalComponent } from './components/room/add-room-modal/add-room-modal.component';
 import { EditRoomModalComponent } from './components/room/edit-room-modal/edit-room-modal.component';
